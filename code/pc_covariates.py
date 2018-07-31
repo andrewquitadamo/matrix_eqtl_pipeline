@@ -6,19 +6,20 @@ import pandas as pd
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-i','--inputfile', required=True, help='')
-    parser.add_argument('-o','--outputfile',nargs='?', help='')
+    parser.add_argument('-v','--vcf-file', required=True, help='')
+    parser.add_argument('-o','--output-file',nargs='?', help='')
     args = parser.parse_args()
 
-    if not os.path.isfile(args.inputfile):
-        print(args.inputfile, 'doesn\'t exist', sep=" ")
+    if not os.path.isfile(args.vcf_file):
+        print(args.vcf_file, 'doesn\'t exist', sep=" ")
         sys.exit(1)
 
-    if not (args.outputfile):
-        args.outputfile = args.inputfile + '.pcs'
+    if not (args.output_file):
+        args.output_file = args.vcf_file + '.pcs'
 
-    return(args.inputfile, args.outputfile)
+    return(args.vcf_file, args.output_file)
 
+#TODO: Add option for number of pcs
 
 def main():
     inputfile, outputfile = get_args()
