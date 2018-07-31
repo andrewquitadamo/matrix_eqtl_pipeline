@@ -5,24 +5,24 @@ import os.path
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-i','--inputfile',required=True, help='')
-    parser.add_argument('-o','--outputfile',nargs='?', help='')
+    parser.add_argument('-v','--vcf-file',required=True, help='')
+    parser.add_argument('-o','--output-file',nargs='?', help='')
     parser.add_argument('-s','--stdout', action='store_true', help='')
     args = parser.parse_args()
 
-    of = args.outputfile
-    if not os.path.isfile(args.inputfile):
-        print(args.inputfile, 'doesn\'t exist', sep=" ")
+    of = args.output_file
+    if not os.path.isfile(args.vcf_file):
+        print(args.vcf_file, 'doesn\'t exist', sep=" ")
         sys.exit(1)
 
     if args.stdout:
         of = sys.stdout
 
-    if not args.stdout and not (args.outputfile):
-        args.outputfile = args.inputfile + '.noh'
-        of = open(args.outputfile,'w')
+    if not args.stdout and not (args.output_file):
+        args.output_file = args.vcf_file + '.noh'
+        of = open(args.output_file,'w')
 
-    return(args.inputfile, of)
+    return(args.vcf_file, of)
 
 def main():
     input_file, output_file = get_args()
