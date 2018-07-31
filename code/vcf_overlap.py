@@ -21,7 +21,7 @@ def find_duplicates(ids):
 def find_overlaps(fileobj, id_dict, pos_dict):
         #Read the header and split it
         header = fileobj.readline().rstrip()
-        ids = header.split("\t")
+        ids = header.split()
         if len(ids) > len(set(ids)):
             find_duplicates(ids)
         #Add IDs to the ID count dictionary
@@ -38,7 +38,6 @@ def find_overlaps(fileobj, id_dict, pos_dict):
                 pos_dict[id_val] = str(counter + 1)
 
 def extract_columns(fileobj, filename, extension, numfiles, arg, id_dict, pos_dict):
-#with open(filename, 'r') as f:
         pos = []
         #Loop through the keys in the count dictionary
         for key in id_dict:
@@ -81,43 +80,26 @@ def get_extension(extension):
         extension = '.' + extension
     return extension
 
-#TODO: Move args to get_args() function to debug
 def get_args():
     #Set up command line arguments options
     parser = argparse.ArgumentParser()
     parser.add_argument('-e','--extension',nargs='?', help='')
-    parser.add_argument('-v','--vcffile', required=True, help='')
-    parser.add_argument('-g', '--expressionfile', required=True, help='')
+    parser.add_argument('-v','--vcf-file', required=True, help='')
+    parser.add_argument('-g', '--expression-file', required=True, help='')
     args = parser.parse_args()
 
     return(args)
     
-#parser = argparse.ArgumentParser()
-#   parser.add_argument('-i','--inputfile', help='')
-#   parser.add_argument('-o','--outputfile',nargs='?', help='')
-#   parser.add_argument('-s','--stdout', action='store_true', help='')
-#   args = parser.parse_args()
-
 def main():
     """Overlap samples"""
-    #Set up command line arguments options
-#    parser = argparse.ArgumentParser()
-#    parser.add_argument('-e','--extension',nargs='?', help='')
-    #parser.add_argument('file', nargs='*', help='Files to overlap')
-#    parser.add_argument('-v','--vcffile', help='')
-#    parser.add_argument('-g', '--expressionfile', help='')
-#    args = parser.parse_args()
-
     args = get_args()
 
     id_dict = collections.OrderedDict()
     pos_dict = {}
 
-#    args.extension = get_extension(args.extension)
-
     #Find the overlapping samples
     #Open each file from the arguments one by one
-    for filename in (args.vcffile, args.expressionfile):
+    for filename in (args.vcf_file, args.expression_file):
         if '.gz' in filename:
             with gzip.open(filename, 'rb') as f:
                 find_overlaps(f, id_dict, pos_dict)
@@ -126,14 +108,13 @@ def main():
                 find_overlaps(f, id_dict, pos_dict)
 
     #print out the overlapping samples from each file
-    for arg, filename in enumerate((args.vcffile, args.expressionfile)):
+    for arg, filename in enumerate((args.vcf_file, args.expression_file)):
         if '.gz' in filename:
             with gzip.open(filename, 'rb') as f:
                 extract_columns(f, filename, args.extension, 2, arg, id_dict, pos_dict)
         else:
             with open(filename, 'r') as f:
                 extract_columns(f, filename, args.extension, 2, arg, id_dict, pos_dict)
-
 
 if __name__ == '__main__':
     main()
