@@ -5,24 +5,24 @@ import sys
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-s','--snppcfile', required=True, help='')
-    parser.add_argument('-p','--peerfactorfile', required=True, help='')
-    parser.add_argument('-o','--outputfile',nargs='?', help='')
+    parser.add_argument('-s','--snp-pc-file', required=True, help='')
+    parser.add_argument('-p','--peer-factor-file', required=True, help='')
+    parser.add_argument('-o','--output-file',nargs='?', help='')
     args = parser.parse_args()
 
-    if not os.path.isfile(args.snppcfile):
-        print(args.snppcfile, 'doesn\'t exist', sep=" ")
+    if not os.path.isfile(args.snp_pc_file):
+        print(args.snp_pc_file, 'doesn\'t exist', sep=" ")
         sys.exit(1)
 
-    if not os.path.isfile(args.peerfactorfile):
-        print(args.peerfactorfile, 'doesn\'t exist', sep=" ")
+    if not os.path.isfile(args.peer_factor_file):
+        print(args.peer_factor_file, 'doesn\'t exist', sep=" ")
         sys.exit(1)
 
-    if not (args.outputfile):
-        direc = os.path.split(args.snppcfile)[0]
-        args.outputfile = direc + '/combined_covariates'
+    if not (args.output_file):
+        direc = os.path.split(args.snp_pc_file)[0]
+        args.output_file = direc + '/combined_covariates'
 
-    return(args.snppcfile, args.peerfactorfile, args.outputfile)
+    return(args.snp_pc_file, args.peer_factor_file, args.output_file)
 
 def main():
 
