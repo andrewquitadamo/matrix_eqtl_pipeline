@@ -8,18 +8,18 @@ from rpy2.robjects.vectors import DataFrame
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-i','--inputfile', required=True, help='')
-    parser.add_argument('-o','--outputfile',nargs='?', help='')
+    parser.add_argument('-i','--input-file', required=True, help='')
+    parser.add_argument('-o','--output-file',nargs='?', help='')
     args = parser.parse_args()
 
-    if not os.path.isfile(args.inputfile):
-        print(args.inputfile, 'doesn\'t exist', sep=" ")
+    if not os.path.isfile(args.input_file):
+        print(args.input_file, 'doesn\'t exist', sep=" ")
         sys.exit(1)
 
-    if not (args.outputfile):
-        args.outputfile = args.inputfile + '.qnorm'
+    if not (args.output_file):
+        args.output_file = args.input_file + '.qnorm'
 
-    return(args.inputfile, args.outputfile)
+    return(args.input_file, args.output_file)
 
 
 def main():
