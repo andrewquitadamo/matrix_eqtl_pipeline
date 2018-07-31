@@ -22,9 +22,9 @@ def get_args():
 #TODO: Add option for number of pcs
 
 def main():
-    inputfile, outputfile = get_args()
+    vcf_file, output_file = get_args()
 
-    genotypes = pd.read_csv(inputfile, sep = '\t', chunksize = 100000, index_col=0)
+    genotypes = pd.read_csv(vcf_file, sep = '\t', chunksize = 100000, index_col=0)
 
     ipca = IncrementalPCA()
     for chunk in genotypes:
@@ -34,10 +34,10 @@ def main():
 
     pc1='PC1\t' + '\t'.join(str(x) for x in pc1)
 
-    with open(inputfile, 'r') as f:
+    with open(vcf_file, 'r') as f:
         header = f.readline().rstrip()
 
-    with open(outputfile,'w') as f:
+    with open(output_file,'w') as f:
         print(header, file=f)
         print(pc1, file=f)
 
