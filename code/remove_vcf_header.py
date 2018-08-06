@@ -10,27 +10,29 @@ def get_args():
     parser.add_argument('-s','--stdout', action='store_true', help='')
     args = parser.parse_args()
 
-    of = args.output_file
     if not os.path.isfile(args.vcf_file):
         print(args.vcf_file, 'doesn\'t exist', sep=" ")
         sys.exit(1)
 
-    if args.stdout:
-        of = sys.stdout
-
     if not args.stdout and not (args.output_file):
         args.output_file = args.vcf_file + '.noh'
-        of = open(args.output_file,'w')
 
-    return(args.vcf_file, of)
+    return(args.vcf_file, args.output_file)
 
-def main():
-    input_file, output_file = get_args()
+def remove_header(input_file, output_file=None):
+    if not output_file:
+        of = sys.stdout
+    else:
+        of = open(output_file, 'w')
 
     with open(input_file,'r') as f:
         for line in f:
             if not line.startswith('##'):
-                print(line,file=output_file,end='')
+                print(line,file=of,end='')
+
+def main():
+    input_file, output_file = get_args()
+    remove_header(input_file, output_file)
 
 if __name__ == '__main__':
     main()
