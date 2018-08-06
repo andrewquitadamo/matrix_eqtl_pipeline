@@ -3,10 +3,10 @@ import sys
 import argparse
 import os.path
 import remove_vcf_header
+import vcf_overlap
 import filter_snps
 import parse
 import position
-import vcf_overlap
 import pc_covariates
 import run_matrix_eqtl
 import run_iqn
@@ -67,7 +67,7 @@ def main():
         run_peer.main()
         peer_file = gene_exp + '.peer_factors_' + numfactors
         pc_file = matrix_file + '.pcs'
-        sys.argv[1:] = ['-s',pc_file,'-p', peer_file]
+        sys.argv[1:] = ['-p',pc_file,'-f', peer_file]
         combine_covariates.main()        
         covariate_file = 'data/combined_covariates'
         sys.argv[1:] = ['-m',vcf_file, '-p', position_file, '-e', gene_exp, '-g', gene_position, '-c', covariate_file]
