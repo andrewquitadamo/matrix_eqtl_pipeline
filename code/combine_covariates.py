@@ -20,7 +20,7 @@ def get_args():
         print(args.peer_factor_file, 'doesn\'t exist', sep=" ")
         sys.exit(1)
 
-    if not args.stdout and not (args.output_file):
+    if not args.stdout and not args.output_file:
         direc = os.path.split(args.snp_pc_file)[0]
         args.output_file = direc + '/combined_covariates'
 

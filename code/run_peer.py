@@ -17,7 +17,7 @@ def get_args():
         print(args.input_file, 'doesn\'t exist', sep=" ")
         sys.exit(1)
 
-    if not (args.output_file):
+    if not args.output_file:
         args.output_file = args.input_file + '.peer_factors_' + args.number_factors
 
     return(args.input_file, args.number_factors, args.output_file)

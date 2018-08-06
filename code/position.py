@@ -14,9 +14,9 @@ def get_args():
         print(args.vcf_input, 'doesn\'t exist', sep=" ")
         sys.exit(1)
 
-    if not (args.output_file):
+    if not args.output_file:
         args.output_file = args.vcf_input + '.positions'
-    if not (args.meqtl_output_file):
+    if not args.meqtl_output_file:
         args.meqtl_output_file = args.vcf_input + '.meqtl_positions'
 
     return(args.vcf_input, args.output_file, args.meqtl_output_file)

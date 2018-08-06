@@ -20,7 +20,7 @@ def get_args():
     if not args.stdout and not args.output_file:
         args.output_file = args.vcf_file + '.pcs'
 
-    if not (args.number_pcs):
+    if not args.number_pcs:
         args.number_pcs = 1
 
     return(args.vcf_file, args.output_file, args.number_pcs)

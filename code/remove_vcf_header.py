@@ -14,7 +14,7 @@ def get_args():
         print(args.vcf_file, 'doesn\'t exist', sep=" ")
         sys.exit(1)
 
-    if not args.stdout and not (args.output_file):
+    if not args.stdout and not args.output_file:
         args.output_file = args.vcf_file + '.noh'
 
     return(args.vcf_file, args.output_file)
