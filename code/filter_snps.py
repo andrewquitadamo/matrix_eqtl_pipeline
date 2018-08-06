@@ -21,28 +21,34 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-v','--vcf-input', required=True, help='')
     parser.add_argument('-o','--output-file',nargs='?', help='')
+    parser.add_argument('-s','--stdout', action='store_true',help='')
     args = parser.parse_args()
 
     if not os.path.isfile(args.vcf_input):
         print(args.vcf_input, 'doesn\'t exist', sep=" ")
         sys.exit(1)
 
-    if not (args.output_file):
+    if not args.stdout and (not args.output_file):
         args.output_file = args.vcf_input + '.maf_filtered'
 
     return(args.vcf_input, args.output_file)
     
-def output(line, fo):
-    if line:
-        print(line, file=fo)
+def filt_all(vcf_input, output_file=None):
+    if not output_file:
+        of = sys.stdout
+    else:
+        of = open(output_file, 'w')
+
+    with open(vcf_input, 'r') as f:
+        for line in f:
+            line = filter(line)
+            if line:
+                print(line, file=of)
+    
 
 def main():
     vcf_input, output_file = get_args()
-
-    with open(vcf_input, 'r') as f, open(output_file, 'w') as fo:
-        for line in f:
-            line = filter(line)
-            output(line, fo)
+    filt_all(vcf_input, output_file)
 
 if __name__ == '__main__':
     main()
