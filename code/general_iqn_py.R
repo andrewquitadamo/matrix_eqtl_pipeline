@@ -1,6 +1,6 @@
 inverse_quantile_norm <- function(filename)
 {
-	gene = SlicedData$new()$LoadFile(filename);
+	{sink("/dev/null"); gene = SlicedData$new()$LoadFile(filename);sink();}
 
 	for(sl in 1:length(gene)) {
 	  mat = gene[[sl]];
