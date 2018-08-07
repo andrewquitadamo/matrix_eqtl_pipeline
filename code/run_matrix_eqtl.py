@@ -40,8 +40,7 @@ def main():
     r = ro.r
 
     r.source("code/mxeqtl.R")
-    r.source("tme.R")
-    #r.source("ttmet.R")
+    r.source("code/MatrixEQTL.R")
 
     r.mxeqtl(genotype_matrix,genotype_positions,gene_expression_matrix,gene_positions,covariates=covariates,cis_output_file=output_file,cis_pval=pval,qq=qqplot)
 
