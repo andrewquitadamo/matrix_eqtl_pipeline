@@ -28,7 +28,7 @@ def iqn(input_filename, output_filename=None):
     utils = importr('utils', robject_translations={'with': '_with'})
     write_table = utils.write_table
 
-    r.source("tme.R")
+    r.source("code/MatrixEQTL.R")
     r.source("code/general_iqn_py.R")
 
     if output_filename == None:
