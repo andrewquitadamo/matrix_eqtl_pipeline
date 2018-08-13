@@ -1,10 +1,10 @@
 * remove_vcf_header.py
 	- Removes ## header lines from VCF files; Keeps # header
 	- Takes one argument  
-		-v/--vcf-file : name of VCF file to remove header from  
+		`-v/--vcf-file` : name of VCF file to remove header from  
 	- Has two optional arguments  
-		-o/--output-file : Custom name of output file if the .noh extension isn't desired  
-		-s/--stdout : Prints output to stdout ie console/terminal, can be redirected or piped  
+		`-o/--output-file` : Custom name of output file if the .noh extension isn't desired  
+		`-s/--stdout` : Prints output to stdout ie console/terminal, can be redirected or piped  
 
 * vcf_overlap.py
 	- Overlaps the samples from the VCF file and the gene expression file
