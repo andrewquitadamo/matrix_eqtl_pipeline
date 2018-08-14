@@ -10,13 +10,17 @@
 
 STEPS
 ==================================
-*Code*
+#Code#  
+
+```
 git clone https://github.com/andrewquitadamo/matrix_eqtl_pipeline.git  
 wget https://raw.githubusercontent.com/shilab/meQTL_functions/master/R/mxeqtl.R -P code/  
 python3 code/modify_matrix_eqtl.py  
+```
 
-*Dependancies*  
+#Dependancies#  
 
+```
 apt install python-setuptools  
 apt update  
 apt install python3-pip  
@@ -36,3 +40,4 @@ tar -xvzf R_peer_source_1.3.tgz
 R CMD INSTALL R_peer_source_1.3.tgz  
 
 python3 -m pip install rpy2  
+```
