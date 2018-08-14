@@ -10,7 +10,7 @@
 
 STEPS
 ==================================
-#Code#  
+**Code**  
 
 ```
 git clone https://github.com/andrewquitadamo/matrix_eqtl_pipeline.git  
@@ -18,7 +18,7 @@ wget https://raw.githubusercontent.com/shilab/meQTL_functions/master/R/mxeqtl.R 
 python3 code/modify_matrix_eqtl.py  
 ```
 
-#Dependancies#  
+**Dependancies**  
 
 ```
 apt install python-setuptools  
