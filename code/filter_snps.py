@@ -34,7 +34,10 @@ def get_args():
 
     return(args.vcf_input, args.output_file, args.maf_cutoff)
     
-def filt_all(vcf_input, output_file=None, maf_cutoff=0.05):
+def filt_all(vcf_input, output_file=None, maf_cutoff=None):
+    if not maf_cutoff:
+        maf_cutoff = 0.05
+
     if not output_file:
         of = sys.stdout
     else:
