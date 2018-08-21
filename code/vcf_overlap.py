@@ -54,7 +54,7 @@ def extract_columns(fileobj, filename, extension, numfiles, arg, id_dict, pos_di
 
         #Open the file
         if extension:
-            filename = filename + extension + '.out'
+            filename = filename + extension
         else:
             filename = filename + '.out'
         if '.gz' in str(filename):
