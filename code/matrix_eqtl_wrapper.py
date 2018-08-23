@@ -32,6 +32,19 @@ def get_args():
     parser.add_argument('--peer-factor-filename',help='')
     parser.add_argument('--combined-covariate-filename',help='') 
     parser.add_argument('--additional-covariates',help='')
+    parser.add_argument('--trans-output-file',help='')
+    parser.add_argument('--trans-p-value',help='')
+    parser.add_argument('--model',help='')
+    parser.add_argument('--cis-distance',help='')
+    parser.add_argument('--cis-p-value',help='')
+    parser.add_argument('--no-header', action='store_false', help='')
+    parser.add_argument('--no-rownames',action='store_false',help='')
+    parser.add_argument('--missing',help='')
+    parser.add_argument('--sep',help='')
+    parser.add_argument('--maf',help='')
+    parser.add_argument('--qqplot',help='')
+    parser.add_argument('--p-value',help='')
+    parser.add_argument('--eqtl-output-file',help='')
 
     args = parser.parse_args()
 
@@ -47,12 +60,10 @@ def get_args():
         print(args.gene_position_file, 'doesn\'t exist', sep=" ")
         sys.exit(1)
 
-    #return(args.vcf_file, args.gene_expression_file, args.gene_position_file, args.numfactors)
     return(args)
 
 def main():
 
-#        vcf_file, gene_exp, gene_position, numfactors = get_args()
         args = get_args()
 
         sys.argv[1:] = ['-v', args.vcf_file]
@@ -145,20 +156,35 @@ def main():
             sys.argv[len(sys.argv):] = ['-a',args.additional_covariates]
         combine_covariates.main()        
 
-        #Output file
-        #P-value
-        #qq-plot
-        #Trans output file
-        #Trans p-value
-        #Model
-        #Cis distance
-        #Cis p-value
-        #Header
-        #Rownames
-        #MAF
-        #missing
-        #sep
         sys.argv[1:] = ['-m',matrix_file, '-p', position_file, '-e', gene_exp, '-g', args.gene_position_file, '-c', covariate_file]
+
+        if args.trans_output_file:
+            sys.argv[len(sys.argv):] = ['--trans-output-file',args.trans_output_file] #
+        if args.trans_p_value:
+            sys.argv[len(sys.argv):] = ['--trans-p-value', args.trans_p_value] #
+        if args.model:
+            sys.argv[len(sys.argv):] = ['--model', args.model] #
+        if args.cis_distance:
+            sys.argv[len(sys.argv):] = ['--cis-distance', args.cis_distance] #
+        if args.cis_p_value:
+            sys.argv[len(sys.argv):] = ['--p-value', args.cis_p_value] #
+        if args.no_header==False:
+            sys.argv[len(sys.argv):] = ['--no-header'] #
+        if args.no_rownames==False:
+            sys.argv[len(sys.argv):] = ['--no-rownames'] #
+        if args.missing:
+            sys.argv[len(sys.argv):] = ['--missing', args.missing] #
+        if args.sep:
+            sys.argv[len(sys.argv):] = ['--sep', args.sep] #
+        if args.maf:
+            sys.argv[len(sys.argv):] = ['--maf', args.maf] #
+        if args.qqplot:
+            sys.argv[len(sys.argv):] = ['--qq-plot', args.qqplot] #
+        if args.p_value:
+            sys.argv[len(sys.argv):] = ['--p-value', args.p_value] #
+        if args.eqtl_output_file:
+            sys.argv[len(sys.argv):] = ['--output-file', args.eqtl_output_file] #
+
         run_matrix_eqtl.main()
         
 if __name__ == '__main__':
