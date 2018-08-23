@@ -10,7 +10,7 @@ Dependancies
 * RPy2
 
 
-STEPS
+Steps
 ==================================
 **Code**  
 
