@@ -66,7 +66,7 @@ CorrBoxPlot <- function (mEQTL,threshold,expr,genot,visual=FALSE,pdf_file="",crl
 			dev.off()
 		}
 	}
-	corr_df <- data.frame(names(corr),as.vector(corr))
+	corr_df <- data.frame(names(corr), as.vector(corr))
 	row.names(corr_df) <- NULL
 	return(corr_df)
 }
@@ -109,5 +109,5 @@ getData <- function(data)
 
 getFileData <- function(filename)
 {
-	suppressMessages(return(read_delim(filename, delim='\t')))
+	suppressMessages(return(read_delim(filename, delim='\t',progress=F)))
 }
