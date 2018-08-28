@@ -12,6 +12,8 @@ import run_matrix_eqtl
 import run_iqn
 import run_peer
 import combine_covariates
+import CorrBoxPlot
+import manhattan
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -45,6 +47,9 @@ def get_args():
     parser.add_argument('--qqplot',help='')
     parser.add_argument('--p-value',help='')
     parser.add_argument('--eqtl-output-file',help='')
+    parser.add_argument('--boxplot-pdf-file',help='')
+    parser.add_argument('--correlation-output-file',help='')
+    parser.add_argument('--manhattan-pdf-file',help='')
 
     args = parser.parse_args()
 
@@ -96,10 +101,7 @@ def main():
         filter_snps.main()
         if args.maf_cutoff or args.filtered_filename:
             del sys.argv[3:]
-        if args.filtered_filename:
-            vcf_file = args.filtered_filename
-        else:
-            vcf_file = vcf_file + '.maf_filtered'
+        vcf_file = args.filtered_filename or (vcf_file + '.maf_filtered')
         sys.argv[2] = vcf_file
         if args.parsed_filename:
             sys.argv[3:] = ['-o',args.parsed_filename]
@@ -114,10 +116,7 @@ def main():
         if args.meqtl_position_filename:
             sys.argv[len(sys.argv):] = ['-m',args.meqtl_position_filename]
         position.main()
-        if args.meqtl_position_filename:
-            position_file = args.meqtl_position_filename
-        else:
-            position_file =vcf_file + '.meqtl_positions'
+        position_file = args.meqtl_position_filename or (vcf_file + '.meqtl_positions')
         if args.meqtl_position_filename or args.position_filename:
             del sys.argv[3:]
         sys.argv[2] = matrix_file
@@ -138,20 +137,16 @@ def main():
         sys.argv[2] = gene_exp
         sys.argv = sys.argv + ['-n',args.numfactors]
         if args.peer_factor_filename:
-            sys.argv[3:] = ['-o', args.peer_factor_filename]
+            sys.argv[5:] = ['-o', args.peer_factor_filename]
+        print(sys.argv)
         run_peer.main()
-        if args.peer_factor_filename:
-            peer_file = args.peer_factor_filename
-        else:
-            peer_file = gene_exp + '.peer_factors_' + args.numfactors
+        peer_file = args.peer_factor_filename or (gene_exp + '.peer_factors_' + args.numfactors)
         pc_file = matrix_file + '.pcs'
         sys.argv[1:] = ['-p',pc_file,'-f', peer_file]
 
         if args.combined_covariate_filename:
             sys.argv[5:] = ['-o', args.combined_covariate_filename]
-            covariate_file = args.combined_covariate_filename
-        else:
-            covariate_file = 'data/combined_covariates'
+        covariate_file = args.combined_covariate_filename or 'data/combined_covariates'
         if args.additional_covariates:
             sys.argv[len(sys.argv):] = ['-a',args.additional_covariates]
         combine_covariates.main()        
@@ -186,6 +181,19 @@ def main():
             sys.argv[len(sys.argv):] = ['--output-file', args.eqtl_output_file] #
 
         run_matrix_eqtl.main()
-        
+
+
+        sys.argv[1:] = ['-m',args.eqtl_output_file or 'MatrixEQTLOutput','-g',matrix_file,'-e',gene_exp]
+
+        if args.boxplot_pdf_file:
+            sys.argv[len(sys.argv):] = ['--pdf-file', args.boxplot_pdf_file]
+        if args.correlation_output_file:
+            sys.argv[len(sys.argv):] = ['--output-file', args.correlation_output_file]
+        CorrBoxPlot.main()
+
+        if args.manhattan_pdf_file:
+            sys.argv[1:] = ['-e',args.eqtl_output_file or 'MatrixEQTLOutput','-l',position_file,'-p',args.manhattan_pdf_file]
+            manhattan.main()        
+
 if __name__ == '__main__':
     main()
