@@ -24,33 +24,32 @@ def get_args():
     parser.add_argument('-n','--numfactors',required=True, help='')
     parser.add_argument('--headless-vcf-filename',help='')
     parser.add_argument('--overlap-extension',help='')
-    parser.add_argument('--maf-cutoff',help='')
+    parser.add_argument('--maf-cutoff',help='Minor allele frequency cutoff for genotype filtering. Default is 0.05')
     parser.add_argument('--filtered-filename',help='')
     parser.add_argument('--parsed-filename',help='')
     parser.add_argument('--position-filename',help='')
     parser.add_argument('--meqtl-position-filename',help='')
-    parser.add_argument('--number-pcs',help='')
+    parser.add_argument('--number-pcs',help='Number of genotype principal components to correct')
     parser.add_argument('--pc-filename',help='')
     parser.add_argument('--normalized-filename',help='')
     parser.add_argument('--peer-factor-filename',help='')
     parser.add_argument('--combined-covariate-filename',help='') 
     parser.add_argument('--additional-covariates',help='')
     parser.add_argument('--trans-output-file',help='')
-    parser.add_argument('--trans-p-value',help='')
-    parser.add_argument('--model',help='')
-    parser.add_argument('--cis-distance',help='')
-    parser.add_argument('--cis-p-value',help='')
+    parser.add_argument('--trans-p-value',help='Maximum p-value for eQTL results for trans- analysis')
+    parser.add_argument('--model',choices={'linear','anova','linear_cross'},help='Model to use for eQTL analysis')
+    parser.add_argument('--cis-distance',help='eQTL search window size in base pairs')
+    parser.add_argument('--cis-p-value',help='Maximum p-value for eQTL results for cis- analysis')
     parser.add_argument('--no-header', action='store_false', help='')
     parser.add_argument('--no-rownames',action='store_false',help='')
     parser.add_argument('--missing',help='')
-    parser.add_argument('--sep',help='')
+    parser.add_argument('--sep',help='Character separating fields; Default is tab')
     parser.add_argument('--maf',help='')
     parser.add_argument('--qqplot',help='')
-    parser.add_argument('--p-value',help='')
     parser.add_argument('--eqtl-output-file',help='')
     parser.add_argument('--boxplot-pdf-file',help='')
     parser.add_argument('--correlation-output-file',help='')
-    parser.add_argument('--manhattan-pdf-file',help='')
+    parser.add_argument('--manhattan-pdf-file',help='Filename for manhattan plot')
 
     args = parser.parse_args()
 
@@ -168,8 +167,6 @@ def main():
             sys.argv[len(sys.argv):] = ['--maf', args.maf] #
         if args.qqplot:
             sys.argv[len(sys.argv):] = ['--qq-plot', args.qqplot] #
-        if args.p_value:
-            sys.argv[len(sys.argv):] = ['--p-value', args.p_value] #
         if args.eqtl_output_file:
             sys.argv[len(sys.argv):] = ['--output-file', args.eqtl_output_file] #
 
