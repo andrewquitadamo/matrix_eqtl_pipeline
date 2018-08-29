@@ -8,11 +8,12 @@ from rpy2.robjects.vectors import DataFrame
 import numpy
 from check_file import check_file
 
+
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-i','--input-file', required=True, help='')
-    parser.add_argument('-o','--output-file',nargs='?', help='')
-    parser.add_argument('-s','--stdout',action='store_true',help='')
+    parser.add_argument('-i', '--input-file', required=True, help='')
+    parser.add_argument('-o', '--output-file', help='')
+    parser.add_argument('-s', '--stdout', action='store_true', help='')
     args = parser.parse_args()
 
     check_file(args.input_file)
@@ -22,6 +23,7 @@ def get_args():
 
     return(args.input_file, args.output_file)
 
+
 def iqn(input_filename, output_filename=None):
     r = ro.r
     utils = importr('utils', robject_translations={'with': '_with'})
@@ -30,12 +32,14 @@ def iqn(input_filename, output_filename=None):
     r.source("code/MatrixEQTL.R")
     r.source("code/general_iqn_py.R")
 
-    if output_filename == None:
+    if output_filename is None:
         output_filename = ""
 
     normed = r['inverse_quantile_norm'](input_filename)
 
-    write_table(normed, output_filename, col_names=True, row_names=False, quote=False, sep="\t")
+    write_table(normed, output_filename, col_names=True,
+                row_names=False, quote=False, sep="\t")
+
 
 def main():
     input_filename, output_filename = get_args()
