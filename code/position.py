@@ -4,19 +4,24 @@ import argparse
 import os.path
 from check_file import check_file
 
+
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-v','--vcf-input', required=True, help='')
-    parser.add_argument('-o','--output-file', help='')
-    parser.add_argument('-m','--meqtl-output-file',nargs='?',help='')
+    parser.add_argument('-v', '--vcf-input', required=True, help='')
+    parser.add_argument('-o', '--output-file', help='')
+    parser.add_argument('-m', '--meqtl-output-file', help='')
     args = parser.parse_args()
 
     check_file(args.vcf_input)
 
-    args.output_file = args.output_file or (args.vcf_input + '.positions')
-    args.meqtl_output_file = args.meqtl_output_file or (args.vcf_input + '.meqtl_positions')
+    args.output_file = args.output_file or (
+        args.vcf_input + '.positions')
+
+    args.meqtl_output_file = args.meqtl_output_file or (
+        args.vcf_input + '.meqtl_positions')
 
     return(args.vcf_input, args.output_file, args.meqtl_output_file)
+
 
 def parse(line):
     fields = line.strip().split()
@@ -32,8 +37,9 @@ def parse(line):
 
         return(id, chr, pos, end, type, meqtl_pos)
 
+
 def parse_info(info, pos):
-    info = info.split(';') 
+    info = info.split(';')
 
     endflag = False
     if 'SVTYPE' in info:
@@ -44,10 +50,10 @@ def parse_info(info, pos):
     typeflag = False
     for counter, field in enumerate(info):
         if field.startswith('SVTYPE'):
-            type = field.split('=')[-1]                                
+            type = field.split('=')[-1]
             typeflag = True
-        if field.startswith('VT') and typeflag == False:
-            type = field.split('=')[-1]                                
+        if field.startswith('VT') and typeflag is False:
+            type = field.split('=')[-1]
         if endflag:
             if field.startswith('END'):
                 end = field.split('=')[-1]
@@ -58,6 +64,7 @@ def parse_info(info, pos):
 
     return(type, end)
 
+
 def position(info, pos):
     type, end = parse_info(info, pos)
     if pos == end:
@@ -67,11 +74,13 @@ def position(info, pos):
 
     return(end, meqtl_pos, type)
 
+
 def main():
     filename, position_file, meqtl_position_file = get_args()
-    with open(filename, 'r') as f, open(position_file, 'w') as pf, open (meqtl_position_file, 'w') as mpf:
-        print("snpid\tchr\tpos",file=mpf)
-        print("snpid\tchr\tstart\tend\ttype",file=pf)
+    with open(filename, 'r') as f, open(position_file, 'w') as pf, open(
+            meqtl_position_file, 'w') as mpf:
+        print("snpid\tchr\tpos", file=mpf)
+        print("snpid\tchr\tstart\tend\ttype", file=pf)
         for line in f:
             position_vals = parse(line)
 
