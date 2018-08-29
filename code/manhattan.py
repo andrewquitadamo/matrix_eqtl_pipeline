@@ -6,6 +6,7 @@ import rpy2.robjects as ro
 from rpy2.robjects.packages import importr
 from rpy2.robjects.vectors import DataFrame
 import numpy
+from check_file import check_file
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -14,9 +15,7 @@ def get_args():
     parser.add_argument('-p','--pdf-file',help='')
     args = parser.parse_args()
 
-    if not os.path.isfile(args.eqtl_output_file):
-        print(args.eqtl_output_file, 'doesn\'t exist', sep=" ")
-        sys.exit(1)
+    check_file(args.eqtl_output_file)
 
     return(args.eqtl_output_file, args.position_file, args.pdf_file)
 

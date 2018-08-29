@@ -2,6 +2,7 @@ from __future__ import print_function
 import argparse
 import os
 import sys
+from check_file import check_file
 
 def add_genotypes(id, genos):
     for counter, geno in enumerate(genos):
@@ -22,11 +23,9 @@ def get_args():
     parser.add_argument('-s','--stdout', action='store_true',help='')
     args = parser.parse_args()
 
-    if not os.path.isfile(args.vcf_input):
-        print(args.vcf_input, 'doesn\'t exist', sep=" ")
-        sys.exit(1)
+    check_file(args.vcf_input)
 
-    if not args.stdout and (not args.output_file):
+    if not args.stdout and not args.output_file:
         args.output_file = args.vcf_input + '.matrix'
 
     return(args.vcf_input, args.output_file)

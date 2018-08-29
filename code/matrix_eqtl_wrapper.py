@@ -14,6 +14,7 @@ import run_peer
 import combine_covariates
 import CorrBoxPlot
 import manhattan
+from check_file import check_file
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -53,17 +54,9 @@ def get_args():
 
     args = parser.parse_args()
 
-    if not os.path.isfile(args.vcf_file):
-        print(args.vcf_file, 'doesn\'t exist', sep=" ")
-        sys.exit(1)
-
-    if not os.path.isfile(args.gene_expression_file):
-        print(args.gene_expression_file, 'doesn\'t exist', sep=" ")
-        sys.exit(1)
-
-    if not os.path.isfile(args.gene_position_file):
-        print(args.gene_position_file, 'doesn\'t exist', sep=" ")
-        sys.exit(1)
+    check_file(args.vcf_file)
+    check_file(args.gene_expression_file)
+    check_file(args.gene_position_file)
 
     return(args)
 

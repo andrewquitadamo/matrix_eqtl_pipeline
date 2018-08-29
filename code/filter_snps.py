@@ -3,6 +3,7 @@ import sys
 from collections import Counter
 import argparse
 import os.path
+from check_file import check_file
 
 def filter(line, maf_cutoff):
     line = line.rstrip()
@@ -25,9 +26,7 @@ def get_args():
     parser.add_argument('-s','--stdout', action='store_true',help='')
     args = parser.parse_args()
 
-    if not os.path.isfile(args.vcf_input):
-        print(args.vcf_input, 'doesn\'t exist', sep=" ")
-        sys.exit(1)
+    check_file(args.vcf_input)
 
     if not args.stdout and (not args.output_file):
         args.output_file = args.vcf_input + '.maf_filtered'
@@ -35,8 +34,7 @@ def get_args():
     return(args.vcf_input, args.output_file, args.maf_cutoff)
     
 def filt_all(vcf_input, output_file=None, maf_cutoff=None):
-    if not maf_cutoff:
-        maf_cutoff = 0.05
+    maf_cutoff = maf_cutoff or 0.05
 
     if not output_file:
         of = sys.stdout

@@ -2,6 +2,7 @@ from __future__ import print_function
 import sys
 import argparse
 import os.path
+from check_file import check_file
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -10,9 +11,7 @@ def get_args():
     parser.add_argument('-s','--stdout', action='store_true', help='')
     args = parser.parse_args()
 
-    if not os.path.isfile(args.vcf_file):
-        print(args.vcf_file, 'doesn\'t exist', sep=" ")
-        sys.exit(1)
+    check_file(args.vcf_file)
 
     if not args.stdout and not args.output_file:
         args.output_file = args.vcf_file + '.noh'

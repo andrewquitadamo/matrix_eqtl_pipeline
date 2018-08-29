@@ -4,24 +4,20 @@ import os
 import sys
 from sklearn.decomposition import IncrementalPCA
 import pandas as pd
+from check_file import check_file
 
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-v','--vcf-file', required=True, help='')
     parser.add_argument('-o','--output-file',nargs='?', help='')
-    parser.add_argument('-n','--number-pcs',type=int,help='')
+    parser.add_argument('-n','--number-pcs',default=1,type=int,help='')
     parser.add_argument('-s','--stdout',action='store_true', help='')
     args = parser.parse_args()
 
-    if not os.path.isfile(args.vcf_file):
-        print(args.vcf_file, 'doesn\'t exist', sep=" ")
-        sys.exit(1)
+    check_file(args.vcf_file)
 
     if not args.stdout and not args.output_file:
         args.output_file = args.vcf_file + '.pcs'
-
-    if not args.number_pcs:
-        args.number_pcs = 1
 
     return(args.vcf_file, args.output_file, args.number_pcs)
 

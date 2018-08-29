@@ -2,22 +2,19 @@ from __future__ import print_function
 import sys
 import argparse
 import os.path
+from check_file import check_file
 
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-v','--vcf-input', required=True, help='')
-    parser.add_argument('-o','--output-file',nargs='?', help='')
+    parser.add_argument('-o','--output-file', help='')
     parser.add_argument('-m','--meqtl-output-file',nargs='?',help='')
     args = parser.parse_args()
 
-    if not os.path.isfile(args.vcf_input):
-        print(args.vcf_input, 'doesn\'t exist', sep=" ")
-        sys.exit(1)
+    check_file(args.vcf_input)
 
-    if not args.output_file:
-        args.output_file = args.vcf_input + '.positions'
-    if not args.meqtl_output_file:
-        args.meqtl_output_file = args.vcf_input + '.meqtl_positions'
+    args.output_file = args.output_file or (args.vcf_input + '.positions')
+    args.meqtl_output_file = args.meqtl_output_file or (args.vcf_input + '.meqtl_positions')
 
     return(args.vcf_input, args.output_file, args.meqtl_output_file)
 

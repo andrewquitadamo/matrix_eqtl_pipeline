@@ -2,23 +2,19 @@ from __future__ import print_function
 import argparse
 import os
 import sys
+from check_file import check_file
 
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-p','--snp-pc-file', required=True, help='')
     parser.add_argument('-f','--peer-factor-file', required=True, help='')
-    parser.add_argument('-o','--output-file',nargs='?', help='')
+    parser.add_argument('-o','--output-file', help='')
     parser.add_argument('-a','--additional-covariates', help='')
     parser.add_argument('-s','--stdout',action='store_true', help='')
     args = parser.parse_args()
 
-    if not os.path.isfile(args.snp_pc_file):
-        print(args.snp_pc_file, 'doesn\'t exist', sep=" ")
-        sys.exit(1)
-
-    if not os.path.isfile(args.peer_factor_file):
-        print(args.peer_factor_file, 'doesn\'t exist', sep=" ")
-        sys.exit(1)
+    check_file(args.snp_pc_file)
+    check_file(args.peer_factor_file)
 
     if not args.stdout and not args.output_file:
         direc = os.path.split(args.snp_pc_file)[0]

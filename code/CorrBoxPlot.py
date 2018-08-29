@@ -8,6 +8,7 @@ from rpy2.robjects.vectors import DataFrame
 from rpy2.robjects import pandas2ri
 import rpy2
 import numpy
+from check_file import check_file
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -19,9 +20,7 @@ def get_args():
     parser.add_argument('-p','--pdf-file',help='')
     args = parser.parse_args()
 
-    if not os.path.isfile(args.matrix_eqtl_results):
-        print(args.matrix_eqtl_results, 'doesn\'t exist', sep=" ")
-        sys.exit(1)
+    check_file(args.matrix_eqtl_results)
 
     if not args.stdout and not args.output_file:
         args.output_file = args.matrix_eqtl_results+ '.corr'

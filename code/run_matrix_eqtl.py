@@ -5,6 +5,7 @@ import sys
 import io
 import argparse
 import os
+from check_file import check_file
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -26,18 +27,9 @@ def get_args():
     parser.add_argument('--missing',default='NA',help='') 
     parser.add_argument('--sep',default='\t',help='')
 
-    
     args = parser.parse_args()
 
-    if not os.path.isfile(args.genotype_matrix):
-        print(args.genotype_matrix, 'doesn\'t exist', sep=" ")
-        sys.exit(1)
-
-    if not args.output_file:
-        args.output_file = 'MatrixEqtlOutput'
-
-    if not args.qq_plot:
-        args.qq_plot = 'MatrixEqtlQQPlot.pdf'
+    check_file(args.genotype_matrix)
 
     return(args)
 

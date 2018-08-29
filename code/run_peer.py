@@ -5,6 +5,7 @@ import sys
 import rpy2.robjects as ro
 from rpy2.robjects.packages import importr
 from rpy2.robjects.vectors import DataFrame
+from check_file import check_file
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -13,12 +14,9 @@ def get_args():
     parser.add_argument('-o','--output-file',nargs='?', help='')
     args = parser.parse_args()
 
-    if not os.path.isfile(args.input_file):
-        print(args.input_file, 'doesn\'t exist', sep=" ")
-        sys.exit(1)
+    check_file(args.input_file)
 
-    if not args.output_file:
-        args.output_file = args.input_file + '.peer_factors_' + args.number_factors
+    args.output_file = args.output_file or (args.input_file + '.peer_factors_' + args.number_factors)
 
     return(args.input_file, args.number_factors, args.output_file)
 
