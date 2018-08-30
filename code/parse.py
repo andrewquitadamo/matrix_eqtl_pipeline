@@ -4,6 +4,7 @@ import os
 import sys
 from check_file import check_file
 
+
 def add_genotypes(id, genos):
     for counter, geno in enumerate(genos):
         geno = geno.split(':')[0]
@@ -16,11 +17,12 @@ def add_genotypes(id, genos):
     line = id + '\t' + '\t'.join(genos)
     return(line)
 
+
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-v','--vcf-input', required=True, help='')
-    parser.add_argument('-o','--output-file',nargs='?', help='')
-    parser.add_argument('-s','--stdout', action='store_true',help='')
+    parser.add_argument('-v', '--vcf-input', required=True, help='')
+    parser.add_argument('-o', '--output-file', help='')
+    parser.add_argument('-s', '--stdout', action='store_true', help='')
     args = parser.parse_args()
 
     check_file(args.vcf_input)
@@ -29,6 +31,7 @@ def get_args():
         args.output_file = args.vcf_input + '.matrix'
 
     return(args.vcf_input, args.output_file)
+
 
 def parse(line):
     fields = line.strip().split()
@@ -44,6 +47,7 @@ def parse(line):
         line = add_genotypes(id, genos)
         return(line)
 
+
 def parse_all(input_file, output_file=None):
     if not output_file:
         of = sys.stdout
@@ -55,6 +59,7 @@ def parse_all(input_file, output_file=None):
             line = parse(line)
             if line:
                 print(line, file=of)
+
 
 def main():
     filename, matrix_file = get_args()
