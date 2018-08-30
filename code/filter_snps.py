@@ -5,6 +5,7 @@ import argparse
 import os.path
 from check_file import check_file
 
+
 def filter(line, maf_cutoff):
     line = line.rstrip()
     if line.startswith('#'):
@@ -15,15 +16,17 @@ def filter(line, maf_cutoff):
         geno_count = Counter(genos)
         if len(geno_count.most_common()) == 1:
             return
-        if (geno_count.most_common()[0][1]) < (len(genos)-len(genos)*maf_cutoff):
+        if (geno_count.most_common()[0][1]) < (len(genos) -
+                                               len(genos) * maf_cutoff):
             return(line)
+
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-v','--vcf-input', required=True, help='')
-    parser.add_argument('-o','--output-file',nargs='?', help='')
-    parser.add_argument('-m','--maf-cutoff',type=float, help='')
-    parser.add_argument('-s','--stdout', action='store_true',help='')
+    parser.add_argument('-v', '--vcf-input', required=True, help='')
+    parser.add_argument('-o', '--output-file', help='')
+    parser.add_argument('-m', '--maf-cutoff', type=float, help='')
+    parser.add_argument('-s', '--stdout', action='store_true', help='')
     args = parser.parse_args()
 
     check_file(args.vcf_input)
@@ -32,7 +35,8 @@ def get_args():
         args.output_file = args.vcf_input + '.maf_filtered'
 
     return(args.vcf_input, args.output_file, args.maf_cutoff)
-    
+
+
 def filt_all(vcf_input, output_file=None, maf_cutoff=None):
     maf_cutoff = maf_cutoff or 0.05
 
@@ -46,7 +50,7 @@ def filt_all(vcf_input, output_file=None, maf_cutoff=None):
             line = filter(line, maf_cutoff)
             if line:
                 print(line, file=of)
-    
+
 
 def main():
     vcf_input, output_file, maf_cutoff = get_args()
