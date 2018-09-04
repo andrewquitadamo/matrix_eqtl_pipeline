@@ -45,7 +45,7 @@ def corrplot(matrix_eqtl_file, genotype_file, gene_expression_file, output_filen
         pdf_file = ""
         visual = False
 
-    corr = r['CorrBoxPlot'](matrix_eqtl_file, 0.05, gene_expression_file, genotype_file, visual=visual, pdf_file=pdf_file)
+    corr = r['corr_boxplot'](matrix_eqtl_file, 0.05, gene_expression_file, genotype_file, visual=visual, pdf_file=pdf_file)
     corr2 = pandas2ri.ri2py(corr)
 
     if output_filename:
