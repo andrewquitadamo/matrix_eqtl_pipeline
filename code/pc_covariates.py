@@ -36,8 +36,7 @@ def pca(genotypes, vcf_file, output_file, number_pcs):
     pcs = ""
 
     for i in range(0, number_pcs):
-        pcs = pcs + "PC" + str(i+1) + "\t" + "\t".join(
-            str(x) for x in ipca.components_[i]) + "\n"
+        pcs = pcs + "PC" + str(i+1) + "\t" + "\t".join(str(x) for x in ipca.components_[i]) + "\n"
 
     with open(vcf_file, 'r') as f:
         header = f.readline().rstrip()

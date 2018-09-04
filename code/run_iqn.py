@@ -37,8 +37,7 @@ def iqn(input_filename, output_filename=None):
 
     normed = r['inverse_quantile_norm'](input_filename)
 
-    write_table(normed, output_filename, col_names=True,
-                row_names=False, quote=False, sep="\t")
+    write_table(normed, output_filename, col_names=True, row_names=False, quote=False, sep="\t")
 
 
 def main():

@@ -17,8 +17,7 @@ def get_args():
     args.output_file = args.output_file or (
         args.vcf_input + '.positions')
 
-    args.meqtl_output_file = args.meqtl_output_file or (
-        args.vcf_input + '.meqtl_positions')
+    args.meqtl_output_file = args.meqtl_output_file or (args.vcf_input + '.meqtl_positions')
 
     return(args.vcf_input, args.output_file, args.meqtl_output_file)
 
@@ -77,8 +76,7 @@ def position(info, pos):
 
 def main():
     filename, position_file, meqtl_position_file = get_args()
-    with open(filename, 'r') as f, open(position_file, 'w') as pf, open(
-            meqtl_position_file, 'w') as mpf:
+    with open(filename, 'r') as f, open(position_file, 'w') as pf, open(meqtl_position_file, 'w') as mpf:
         print("snpid\tchr\tpos", file=mpf)
         print("snpid\tchr\tstart\tend\ttype", file=pf)
         for line in f:

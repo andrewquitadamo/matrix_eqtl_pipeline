@@ -40,8 +40,7 @@ def find_overlaps(fileobj, id_dict, pos_dict):
                 pos_dict[id_val] = str(counter + 1)
 
 
-def extract_columns(fileobj, filename, extension, numfiles, arg,
-                    id_dict, pos_dict):
+def extract_columns(fileobj, filename, extension, numfiles, arg, id_dict, pos_dict):
         pos = []
         # Loop through the keys in the count dictionary
         for key in id_dict:

@@ -23,11 +23,8 @@ def main():
     else:
         of = open(output_file, 'w')
 
-    subprocess.run(["wget",
-                   "https://cran.r-project.org/src/contrib/MatrixEQTL_2.2.tar.gz"],
-                   stdout=subprocess.DEVNULL)
-    subprocess.run(["tar", "-xvzf", "MatrixEQTL_2.2.tar.gz"],
-                   stdout=subprocess.DEVNULL)
+    subprocess.run(["wget", "https://cran.r-project.org/src/contrib/MatrixEQTL_2.2.tar.gz"], stdout=subprocess.DEVNULL)
+    subprocess.run(["tar", "-xvzf", "MatrixEQTL_2.2.tar.gz"], stdout=subprocess.DEVNULL)
 
     with open('MatrixEQTL/R/Matrix_eQTL_engine.R') as f:
         for line in f:

@@ -21,12 +21,10 @@ def get_args():
         direc = os.path.split(args.snp_pc_file)[0]
         args.output_file = direc + '/combined_covariates'
 
-    return(args.snp_pc_file, args.peer_factor_file,
-           args.output_file, args.additional_covariates)
+    return(args.snp_pc_file, args.peer_factor_file, args.output_file, args.additional_covariates)
 
 
-def combine(snp_pc_file, peer_factor_file,
-            outputfile=None, additional_file=None):
+def combine(snp_pc_file, peer_factor_file, outputfile=None, additional_file=None):
     if not outputfile:
         of = sys.stdout
     else:

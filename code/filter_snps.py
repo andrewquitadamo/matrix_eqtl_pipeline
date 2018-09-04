@@ -16,8 +16,7 @@ def filter(line, maf_cutoff):
         geno_count = Counter(genos)
         if len(geno_count.most_common()) == 1:
             return
-        if (geno_count.most_common()[0][1]) < (len(genos) -
-                                               len(genos) * maf_cutoff):
+        if (geno_count.most_common()[0][1]) < (len(genos) - len(genos) * maf_cutoff):
             return(line)
 
 
