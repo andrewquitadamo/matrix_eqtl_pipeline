@@ -9,9 +9,12 @@ def add_genotypes(id, genos):
     for counter, geno in enumerate(genos):
         geno = geno.split(':')[0]
         if '.' in geno:
-            geno = "NA"
+            return
         else:
-            raw_geno = geno.split('|')
+            if '|' in geno:
+                raw_geno = geno.split('|')
+            if '/' in geno:
+                raw_geno = geno.split('/')
         geno = str(int(raw_geno[0]) + int(raw_geno[1]))
         genos[counter] = geno
     line = id + '\t' + '\t'.join(genos)
