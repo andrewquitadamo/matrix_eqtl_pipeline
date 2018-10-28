@@ -138,7 +138,14 @@
 		- `--missing` : The value of missing data, default is `NA`  
 		- `--sep` : The separating character of the genotype and gene expression matrices, default is "\t"  
 
-* `modify_matrix_eqtl.R`
+* `manhattan.py`
+	- Code to create a Manhattan plot from the eQTL results
+	- Takes three arguments
+		- `-e/--eqtl-output-file` : Filename of the eQTL results
+		- `-l/--position-file` : Filename for the genotype positions
+		- `-p/--pdf-file` : Filename for the PDF output of the Manhattan plot
+
+* `modify_matrix_eqtl.py`
 	- Script to create a version of MatrixEQTL Engine that behaves better with Python and rpy2
 	- Takes two optional arguments  
 		- `-o/--output-file`  
