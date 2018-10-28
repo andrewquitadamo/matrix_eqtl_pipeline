@@ -138,6 +138,17 @@
 		- `--missing` : The value of missing data, default is `NA`  
 		- `--sep` : The separating character of the genotype and gene expression matrices, default is "\t"  
 
+* `CorrBoxPlot.py`
+	- Code to produce a boxplot for each eQTL
+	- Takes three arguments
+		- `-m/--matrix-eqtl-results` : Filename of the eQTL results
+		- `-g/--genotype-file` : File the genotype matrix used to produce the eQTLs
+		- `-e/--gene-expression-file` : Filename of the gene expression matrix to produce the eQTLs
+	- Takes three optional arguments
+		- `-s/--stdout` : Option to print the eQTL results with the correlation to stdout
+		- `-o/--output-file` : Name of file for eQTL results with correlation. Default is `.corr`
+		- `-p/--pdf-file` : Name of PDF file for the boxplots. If not provided boxplots aren't produced.
+
 * `manhattan.py`
 	- Code to create a Manhattan plot from the eQTL results
 	- Takes three arguments
