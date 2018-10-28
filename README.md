@@ -1,3 +1,40 @@
+* `matrix_eqtl_wrapper.py`
+	- The main entrypoint for the pipeline.
+	- Takes four arguments
+		- `-v/--vcf-file` : name of VCF file to use in eQTL analysis
+		- `-g/--gene-expression-file` : name of gene expression matrix to use in eQTL analysis
+		- `-p/--gene-position-file` : name of file that contains the positions of the genes
+		- `-n/--numfactors` : number of PEER factor to correct for
+	- Has 28 optional arguments  
+		- `--headless-vcf-filename` : Custom name of output file if the `.noh` extension isn't desired
+   		- `--overlap-extension` : Custom file extension to be used if `.out` isn't desired
+		- `--maf-cutoff` : MAF cutoff to use. Default is 0.05
+		- `--filtered-filename`: Custom name of output file if `.maf_filtered` isn't desired
+		- `--parsed-filename` : Custom name of output file if `.matrix` isn't desired
+		- `--position-filename` : Custom filename for the genotype positions
+		- `--meqtl-position-filename` : Custom filename for the MatrixEQTL formatted positions
+		- `--number-pcs` : Number of PCs to include; default=1 
+		- `--pc-filename` : Custom filename for the PC covariates, default is `filename.pcs`
+		- `--normalized-filename` : Custom filename for the inverse quantile normalized expression matrix, default is `filename.qnorm`
+		- `--peer-factor-filename` : Custom filename for the PEER factors, default is `filename.peer_factors_n` where `n` is the number of factors
+		- `--combined-covariate-filename` : Custom filename for the combined covariates, default is `combined_covariates`
+		- `--additional-covariates` : Filename for any additional covariates to include in the combined covariates file
+		- `--trans-output-file` : Filename of the output file for trans association, default is no trans- output filename
+		- `--trans-p-value` : P-value cutoff for trans associations, default is 0
+		- `--model`: Model type to use. Default is `linear`
+		- `--cis-distance` : Maximum distance between genotype and gene 
+		- `--cis-p-value` : P-value cutoff, default is 0.05
+		- `--no-header` : Binary flag to use if matrices don't have a header with IDs
+		- `--no-rownames` :  Binary flag to use if matrices don't have rowname IDs
+		- `--missing` : The value of missing data, default is `NA`
+		- `--sep` : The separating character of the genotype and gene expression matrices, default is "\t"
+		- `--maf` : MAF cutoff for filtering by MatrixEQTL; Default is 0 and no MAF filtering 
+		- `--qqplot` : Filename of the qq-plot, default is no qq-plot file (?)
+		- `--eqtl-output-file` : Filename of the output file, default is `MatrixEQTLOutput`
+		- `--boxplot-pdf-file` : Filename for PDF of boxplots, default is no boxplots
+		- `--correlation-output-file` : Filename for the correlations of the eQTLs. Default is `MatrixEQTLOutput.corr`
+		- `--manhattan-pdf-file` : Filename for the PDF of the manhattan plot, default is no manhattan plot
+
 * `remove_vcf_header.py`
 	- Removes `##` header lines from VCF files; Keeps `#` header
 	- Takes one argument  
@@ -21,7 +58,7 @@
 	- Takes one argument  
 		- `-v/--vcf-file` : A VCF file with the header information removed; N.B. To get accurate MAF filtering for your sample, use this step after overlapping  
 	- Takes two optional argument  
-		- `-o/--output-file` : Custom name of output file if `.maf_filtered` isn't desire  
+		- `-o/--output-file` : Custom name of output file if `.maf_filtered` isn't desired  
 		- `-s/--stdout` : Prints output to stdout, so it can be redirected or piped  
 
 * `parse.py`
@@ -81,17 +118,45 @@
 * `run_matrix_eqtl.py`
 	- Wrapper for running MatrixEQTL 
 	- Takes four arguments  
-		- `-g/--genotype-matrix` : Genotype matrix of summed genotypes  
-		- `-p/--genotype-positions` : Genotype positions in MatrixEQTL format  
-		- `-e/--gene-expression-matrix` : Gene expression matrix  
-		- `-g/--gene-positions` : Gene positions in MatrixEQTL format  
-	- Takes four additional arguments  
+		- `-m/--genotype-matrix` : Genotype matrix of summed genotypes
+		- `-p/--genotype-positions` : Genotype positions in MatrixEQTL format
+		- `-e/--gene-expression-matrix` : Gene expression matrix
+		- `-g/--gene-positions` : Gene positions in MatrixEQTL format 
+	
+	- Takes 13 optional arguments  
 		- `-c/--covariates` : Covariate filename, no default  
 		- `-o/--output-file` : Custom filename for the MatrixEQTL output, default is `MatrixEqtlOutput`  
 		- `-v/--p-value` : P-value cutoff, default is 0.05  
-		- `-q/--qq-plot` : Custom filename for the qq-plot PDF file, default is `MatrixEqtlQQPlot.pdf`  
+		- `-q/--qq-plot` : Custom filename for the qq-plot PDF file, default is `MatrixEqtlQQPlot.pdf` 
+		- `--trans-output-file` : Filename of the output file for trans association, default is no trans- output filename  
+		- `--trans-p-value` : P-value cutoff for trans associations, default is 0  
+		- `--model` : Model type to use. Default is `linear`  
+		- `--cis-distance` : Maximum distance between genotype and gene  
+		- `--maf` : MAF cutoff for filtering by MatrixEQTL; Default is 0 and no MAF filtering  
+		- `--no-header` : Binary flag to use if matrices don't have a header with IDs  
+		- `--no-rownames`: Binary flag to use if matrices don't have rowname IDs  
+		- `--missing` : The value of missing data, default is `NA`  
+		- `--sep` : The separating character of the genotype and gene expression matrices, default is "\t"  
 
-* `modify_matrix_eqtl.R`
+* `CorrBoxPlot.py`
+	- Code to produce a boxplot for each eQTL
+	- Takes three arguments
+		- `-m/--matrix-eqtl-results` : Filename of the eQTL results
+		- `-g/--genotype-file` : File the genotype matrix used to produce the eQTLs
+		- `-e/--gene-expression-file` : Filename of the gene expression matrix to produce the eQTLs
+	- Takes three optional arguments
+		- `-s/--stdout` : Option to print the eQTL results with the correlation to stdout
+		- `-o/--output-file` : Name of file for eQTL results with correlation. Default is `.corr`
+		- `-p/--pdf-file` : Name of PDF file for the boxplots. If not provided boxplots aren't produced.
+
+* `manhattan.py`
+	- Code to create a Manhattan plot from the eQTL results
+	- Takes three arguments
+		- `-e/--eqtl-output-file` : Filename of the eQTL results
+		- `-l/--position-file` : Filename for the genotype positions
+		- `-p/--pdf-file` : Filename for the PDF output of the Manhattan plot
+
+* `modify_matrix_eqtl.py`
 	- Script to create a version of MatrixEQTL Engine that behaves better with Python and rpy2
 	- Takes two optional arguments  
 		- `-o/--output-file`  
