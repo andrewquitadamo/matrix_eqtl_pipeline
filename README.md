@@ -6,7 +6,7 @@
 		- `-p/--gene-position-file` : name of file that contains the positions of the genes
 		- `-n/--numfactors` : number of PEER factor to correct for
 	- Has 28 optional arguments  
-	    	- `--headless-vcf-filename` : Custom name of output file if the `.noh` extension isn't desired
+		- `--headless-vcf-filename` : Custom name of output file if the `.noh` extension isn't desired
    		- `--overlap-extension` : Custom file extension to be used if `.out` isn't desired
 		- `--maf-cutoff` : MAF cutoff to use. Default is 0.05
 		- `--filtered-filename`: Custom name of output file if `.maf_filtered` isn't desired
