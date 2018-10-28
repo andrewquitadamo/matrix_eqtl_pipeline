@@ -128,15 +128,15 @@
 		- `-o/--output-file` : Custom filename for the MatrixEQTL output, default is `MatrixEqtlOutput`  
 		- `-v/--p-value` : P-value cutoff, default is 0.05  
 		- `-q/--qq-plot` : Custom filename for the qq-plot PDF file, default is `MatrixEqtlQQPlot.pdf` 
-		`--trans-output-file` : Filename of the output file for trans association, default is no trans- output filename
-		`--trans-p-value` : P-value cutoff for trans associations, default is 0
-		`--model` : Model type to use. Default is `linear`
-		`--cis-distance` : Maximum distance between genotype and gene
-		`--maf` : MAF cutoff for filtering by MatrixEQTL; Default is 0 and no MAF filtering
-		`--no-header` : Binary flag to use if matrices don't have a header with IDs
-		`--no-rownames`: Binary flag to use if matrices don't have rowname IDs
-		`--missing` : The value of missing data, default is `NA`
-		`--sep` : The separating character of the genotype and gene expression matrices, default is "\t"
+		`--trans-output-file` : Filename of the output file for trans association, default is no trans- output filename  
+		- `--trans-p-value` : P-value cutoff for trans associations, default is 0  
+		- `--model` : Model type to use. Default is `linear`  
+		- `--cis-distance` : Maximum distance between genotype and gene  
+		- `--maf` : MAF cutoff for filtering by MatrixEQTL; Default is 0 and no MAF filtering  
+		- `--no-header` : Binary flag to use if matrices don't have a header with IDs  
+		- `--no-rownames`: Binary flag to use if matrices don't have rowname IDs  
+		- `--missing` : The value of missing data, default is `NA`  
+		- `--sep` : The separating character of the genotype and gene expression matrices, default is "\t"  
 
 * `modify_matrix_eqtl.R`
 	- Script to create a version of MatrixEQTL Engine that behaves better with Python and rpy2
