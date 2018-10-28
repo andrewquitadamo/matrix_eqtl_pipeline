@@ -123,12 +123,12 @@
 		- `-e/--gene-expression-matrix` : Gene expression matrix
 		- `-g/--gene-positions` : Gene positions in MatrixEQTL format 
 	
-	- Takes  additional arguments  
+	- Takes 13 optional arguments  
 		- `-c/--covariates` : Covariate filename, no default  
 		- `-o/--output-file` : Custom filename for the MatrixEQTL output, default is `MatrixEqtlOutput`  
 		- `-v/--p-value` : P-value cutoff, default is 0.05  
 		- `-q/--qq-plot` : Custom filename for the qq-plot PDF file, default is `MatrixEqtlQQPlot.pdf` 
-		`--trans-output-file` : Filename of the output file for trans association, default is no trans- output filename  
+		- `--trans-output-file` : Filename of the output file for trans association, default is no trans- output filename  
 		- `--trans-p-value` : P-value cutoff for trans associations, default is 0  
 		- `--model` : Model type to use. Default is `linear`  
 		- `--cis-distance` : Maximum distance between genotype and gene  
